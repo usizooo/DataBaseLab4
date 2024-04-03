@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище CatCafeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cats">
+          <Key>
+            <PropertyRef Name="ID_cats" />
+          </Key>
+          <Property Name="ID_cats" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nickname" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="age" Type="int" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="takehomestatus" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ID_catsitter" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="catsitter">
+          <Key>
+            <PropertyRef Name="ID_catsitter" />
+          </Key>
+          <Property Name="ID_catsitter" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="midlename" Type="varchar" MaxLength="20" />
+          <Property Name="workexperience" Type="int" />
+        </EntityType>
+        <Association Name="FK__cats__ID_catsitt__4BAC3F29">
+          <End Role="catsitter" Type="Self.catsitter" Multiplicity="1" />
+          <End Role="cats" Type="Self.cats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catsitter">
+              <PropertyRef Name="ID_catsitter" />
+            </Principal>
+            <Dependent Role="cats">
+              <PropertyRef Name="ID_catsitter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище CatCafeModelContainer">
+          <EntitySet Name="cats" EntityType="Self.cats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="catsitter" EntityType="Self.catsitter" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__cats__ID_catsitt__4BAC3F29" Association="Self.FK__cats__ID_catsitt__4BAC3F29">
+            <End Role="catsitter" EntitySet="catsitter" />
+            <End Role="cats" EntitySet="cats" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CatCafeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cats">
+          <Key>
+            <PropertyRef Name="ID_cats" />
+          </Key>
+          <Property Name="ID_cats" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nickname" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="takehomestatus" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_catsitter" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="catsitter" Relationship="Self.FK__cats__ID_catsitt__4BAC3F29" FromRole="cats" ToRole="catsitter" />
+        </EntityType>
+        <EntityType Name="catsitter">
+          <Key>
+            <PropertyRef Name="ID_catsitter" />
+          </Key>
+          <Property Name="ID_catsitter" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="midlename" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="workexperience" Type="Int32" />
+          <NavigationProperty Name="cats" Relationship="Self.FK__cats__ID_catsitt__4BAC3F29" FromRole="catsitter" ToRole="cats" />
+        </EntityType>
+        <Association Name="FK__cats__ID_catsitt__4BAC3F29">
+          <End Role="catsitter" Type="Self.catsitter" Multiplicity="1" />
+          <End Role="cats" Type="Self.cats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catsitter">
+              <PropertyRef Name="ID_catsitter" />
+            </Principal>
+            <Dependent Role="cats">
+              <PropertyRef Name="ID_catsitter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CatCafeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cats" EntityType="Self.cats" />
+          <EntitySet Name="catsitter" EntityType="Self.catsitter" />
+          <AssociationSet Name="FK__cats__ID_catsitt__4BAC3F29" Association="Self.FK__cats__ID_catsitt__4BAC3F29">
+            <End Role="catsitter" EntitySet="catsitter" />
+            <End Role="cats" EntitySet="cats" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CatCafeModelContainer" CdmEntityContainer="CatCafeEntities">
+          <EntitySetMapping Name="cats">
+            <EntityTypeMapping TypeName="CatCafeModel.cats">
+              <MappingFragment StoreEntitySet="cats">
+                <ScalarProperty Name="ID_cats" ColumnName="ID_cats" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="takehomestatus" ColumnName="takehomestatus" />
+                <ScalarProperty Name="ID_catsitter" ColumnName="ID_catsitter" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="catsitter">
+            <EntityTypeMapping TypeName="CatCafeModel.catsitter">
+              <MappingFragment StoreEntitySet="catsitter">
+                <ScalarProperty Name="ID_catsitter" ColumnName="ID_catsitter" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="midlename" ColumnName="midlename" />
+                <ScalarProperty Name="workexperience" ColumnName="workexperience" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
